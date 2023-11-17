@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const connect = () => {
+const MongoConnect = () => {
     mongoose
         .connect(process.env.MONGODB_URL!, {
             useNewUrlParser: true,
@@ -17,4 +17,4 @@ const connect = () => {
         });
 };
 
-export default connect;
+export default MongoConnect;
