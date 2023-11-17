@@ -11,7 +11,6 @@ import User from "../models/User";
     }
   }
 
-
   export const getUserById = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;

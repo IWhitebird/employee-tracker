@@ -10,6 +10,7 @@ import teamRoutes from "./routes/team";
 //To Connect to MongoDB Database
 MongoConnect();
 
+
 const app : Express = express();
 const PORT = process.env.PORT || 5000;
 
@@ -32,3 +33,7 @@ app.get("/", (res : Response) => {
 
 //To Start the Server
 app.listen(PORT, () => { console.log(`Server is running at ${PORT}`) });
+
+//To Seed the Database
+// import seedDatabase from "./config/seed";
+// seedDatabase();
