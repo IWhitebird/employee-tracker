@@ -4,7 +4,7 @@ export interface IUser extends Document {
   first_name: string;
   last_name?: string | null;
   email: string;
-  gender: "Male" | "Female" | "Other";
+  gender: string;
   avatar?: string | null;
   domain: string;
   available: boolean;
