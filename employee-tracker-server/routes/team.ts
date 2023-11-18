@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   createTeam,
-  getTeams,
+  getAllTeams,
   getTeamById,
 } from "../controllers/team"; 
 
@@ -11,7 +11,7 @@ const router: Router = Router();
 router.post("/", createTeam);
 
 //GET ALL TEAMS
-router.get("/", getTeams);
+router.get("/", getAllTeams);
 
 //GET TEAM DETAILS BY ID
 router.get("/:id", getTeamById);

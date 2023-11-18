@@ -20,7 +20,7 @@ export const createTeam = async (req: Request, res: Response) => {
   }
 };
 
-export const getTeams = async (req: Request, res: Response) => {
+export const getAllTeams = async (req: Request, res: Response) => {
   try {
     const team = await Team.find().populate("team_members");
 
