@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../store/reducer"
 import { setPage } from "../store/slices/userSlice"
+import { FaArrowLeft , FaArrowRight } from "react-icons/fa";
 
 type PaginationProps = {
     totalPages: number;
@@ -15,7 +16,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
-    const halfTotalPagesToShow = Math.floor(totalPagesToShow / 2);
+    const halfTotalPagesToShow = Math.floor(totalPagesToShow /2);
     let startPage = Math.max(1, page - halfTotalPagesToShow);
     let endPage = Math.min(totalPages, startPage + totalPagesToShow - 1);
 
@@ -40,8 +41,8 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
           <>
           <span>...</span>
           <button
-          
-          className={`p-2 px-4 border border-black rounded-full mx-1 bg-gray-300`}
+          key={totalPages}
+          className={`p-2 px-4 border border-black rounded-full mx-1 `}
           onClick={() => handlePageChange(totalPages)}
           >
           {totalPages}
@@ -54,7 +55,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
           <>    
           <button
           key={1}
-          className={`p-2 px-4 border border-black rounded-full mx-1 bg-gray-300`}
+          className={`p-2 px-4 border border-black rounded-full mx-1 `}
           onClick={() => handlePageChange(1)}
           >
           1
@@ -71,13 +72,13 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 flex content-center gap-2">
       <button
         onClick={() => handlePageChange(Math.max(1, page - 1))}
         disabled={page === 1}
         className='text-2xl font-bold'
       >
-        { ' < '}
+        <FaArrowLeft />
       </button>
       {renderPageNumbers()}
       <button
@@ -85,7 +86,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
         disabled={page === totalPages}
         className='text-2xl font-bold'
       >
-        {'>'}
+        <FaArrowRight />
       </button>
     </div>
   );

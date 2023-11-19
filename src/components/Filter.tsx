@@ -15,7 +15,7 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="mt-10 mb-10 flex flex-row w-[60%] mx-auto rounded-xl p-2 content-center items-center justify-between bg-gray-100">
+    <div className="mt-10 mb-10 flex flex-row w-[80%] mr-10 mx-auto rounded-xl p-2 content-center items-center justify-between bg-gray-200 border border-black">
       <div>
         {/* Search bar */}
         <input
@@ -23,7 +23,7 @@ const Filter = () => {
           placeholder={'Search...'}
           value={search}
           onChange={(e) => dispatch(setSearch(e.target.value))}
-          className="border p-2 w-full rounded-2xl"
+          className="border lg:w-[300px] p-2  rounded-2xl"
         />
       </div>
 
@@ -37,6 +37,7 @@ const Filter = () => {
           <option value="all">Select Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
+          <option value="other">Other</option>
         </select>
       </div>
 
@@ -48,8 +49,13 @@ const Filter = () => {
           className="border p-2 w-full"
         >
           <option value="">Select Domain</option>
-          <option value="frontend">Frontend</option>
-          <option value="backend">Backend</option>
+          <option value="IT">IT</option>
+          <option value="Marketing">Marketing</option>
+          <option value="UI Designing">UI Designing</option>
+          <option value="Sales">Sales</option>
+          <option value="Finance">Finance</option>
+          <option value="Management">Management</option>
+          <option value="Business Development">Business Development</option>
         </select>
       </div>
 

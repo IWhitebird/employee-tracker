@@ -1,9 +1,9 @@
 /// <reference types="vite/client" />
-
 /**
  * Represents a user in the system.
  */
 export interface IUser {
+    _id: mongoose.Types.ObjectId;
     first_name: string;
     last_name: string;
     email: string;

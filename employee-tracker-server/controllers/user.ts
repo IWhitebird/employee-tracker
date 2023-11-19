@@ -1,15 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 
-export const getUsers1 = async (req: Request, res: Response) => {
-try{
-  const data = await User.find({});
-  return res.status(200).json({ data });
-} catch (err: any) {
-    return res.status(err.statusCode || 500).json({ message: err.message });
-  }
-};
-
   export const getUsers = async (req: Request, res: Response) => {
     try {
       const {
@@ -27,14 +18,20 @@ try{
       const searchQuery: any = {};
 
       if (search) {
+        const regex = new RegExp(search.toString() , 'i');
         searchQuery.$or = [
-          { first_name: { $regex: search, $options: "i" } },
-          { last_name: { $regex: search, $options: "i" } },
+          { first_name: regex },
+          { last_name: regex },
+          { email: regex },
         ];
       }
+      
 
       if (gender && gender !== "all") {
-        searchQuery.gender = gender;
+        if(gender == 'other'){
+          searchQuery.gender = { $nin: ['Male', 'Female'] };
+        }
+        else searchQuery.gender = gender;
       }
 
       if (domain && domain !== "all") {
@@ -42,7 +39,8 @@ try{
       }
 
       if (available && available !== "all") {
-        searchQuery.available = available;
+        if(available === "true") searchQuery.available = true;
+        else if(available === "false") searchQuery.available = false;
       }
 
       const [totalUsers, users] = await Promise.all([
@@ -52,6 +50,7 @@ try{
           .skip((currentPage - 1) * perPage)
           .limit(perPage),
       ]);
+
 
       const totalPages: number = Math.ceil(totalUsers / perPage);
 
