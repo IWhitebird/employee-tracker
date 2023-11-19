@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux"
+import { RootState } from "../store/reducer"
+import { setPage } from "../store/slices/userSlice"
 
 type PaginationProps = {
     totalPages: number;
-    onPageChange: (pageNumber: number) => void;
     totalPagesToShow?: number;
 };
 
-const Pagination = ({ totalPages, onPageChange , totalPagesToShow = 7 } : PaginationProps) => {
-  
-  const [currentPage, setCurrentPage] = useState(1);
+
+const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => {
+
+  const { page } = useSelector((state : RootState) => state.user)
+  const dispatch = useDispatch();
 
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const halfTotalPagesToShow = Math.floor(totalPagesToShow / 2);
-    let startPage = Math.max(1, currentPage - halfTotalPagesToShow);
+    let startPage = Math.max(1, page - halfTotalPagesToShow);
     let endPage = Math.min(totalPages, startPage + totalPagesToShow - 1);
 
     if (totalPages <= totalPagesToShow) {
@@ -25,7 +28,7 @@ const Pagination = ({ totalPages, onPageChange , totalPagesToShow = 7 } : Pagina
       pageNumbers.push(
         <button
           key={i}
-          className={`p-2 px-4 border border-black rounded-full mx-1 ${i === currentPage ? 'bg-gray-300' : ''}`}
+          className={`p-2 px-4 border border-black rounded-full mx-1 ${i === page ? 'bg-gray-300' : ''}`}
           onClick={() => handlePageChange(i)}
         >
           {i}
@@ -64,23 +67,22 @@ const Pagination = ({ totalPages, onPageChange , totalPagesToShow = 7 } : Pagina
   };
 
   const handlePageChange = (pageNumber : number) => {
-    setCurrentPage(pageNumber);
-    onPageChange(pageNumber);
+    dispatch(setPage(pageNumber))
   };
 
   return (
     <div className="mt-5">
       <button
-        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-        disabled={currentPage === 1}
+        onClick={() => handlePageChange(Math.max(1, page - 1))}
+        disabled={page === 1}
         className='text-2xl font-bold'
       >
         { ' < '}
       </button>
       {renderPageNumbers()}
       <button
-        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-        disabled={currentPage === totalPages}
+        onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
+        disabled={page === totalPages}
         className='text-2xl font-bold'
       >
         {'>'}

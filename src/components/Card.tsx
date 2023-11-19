@@ -1,7 +1,6 @@
-import React from 'react';
-import { IUser } from '../../next-env';
+import { IUser } from '../vite-env';
 
-const Card: React.FC<{ user: IUser }> = ({ user }) => {
+const Card = ({ user } : {user : IUser}) => {
   return (
     <div className="min-w-[400px] mx-auto bg-white rounded-lg overflow-hidden border-2 border-black">
       <div className="flex">

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IUser } from "../../../next-env";
+import { IUser } from "../../vite-env";
 
 interface UserState {
   search: string;
@@ -13,9 +13,9 @@ interface UserState {
 const initialState: UserState = {
   search: "",
   page: 1,
-  gender: "All",
-  domain: "All",
-  availability: "All",
+  gender: "all",
+  domain: "all",
+  availability: "all",
   data: [],
 };
 

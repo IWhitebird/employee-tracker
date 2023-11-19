@@ -1,6 +1,15 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 
+export const getUsers1 = async (req: Request, res: Response) => {
+try{
+  const data = await User.find({});
+  return res.status(200).json({ data });
+} catch (err: any) {
+    return res.status(err.statusCode || 500).json({ message: err.message });
+  }
+};
+
   export const getUsers = async (req: Request, res: Response) => {
     try {
       const {
