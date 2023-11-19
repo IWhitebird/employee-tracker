@@ -42,7 +42,7 @@ const TeamModal = ({
       {
         !loading && 
         (
-          <div className="bg-white p-6 border border-black rounded-lg max-w-md w-full">
+          <div className="bg-white w-[80%] lg:w-full p-6 border border-black rounded-lg max-w-md w-full">
           <button
             className="absolute text-4xl top-4 right-4 text-gray-600 hover:text-gray-800"
             onClick={closeModal}

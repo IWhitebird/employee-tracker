@@ -29,7 +29,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
       pageNumbers.push(
         <button
           key={i}
-          className={`p-2 px-4 border border-black rounded-full mx-1 ${i === page ? 'bg-gray-300' : ''}`}
+          className={`p-2 lg:px-4 border border-black rounded-full  ${i === page ? 'bg-gray-300' : ''}`}
           onClick={() => handlePageChange(i)}
         >
           {i}
@@ -42,7 +42,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
           <span>...</span>
           <button
           key={totalPages}
-          className={`p-2 px-4 border border-black rounded-full mx-1 `}
+          className={`p-2 lg:px-4 border border-black rounded-full  `}
           onClick={() => handlePageChange(totalPages)}
           >
           {totalPages}
@@ -55,7 +55,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
           <>    
           <button
           key={1}
-          className={`p-2 px-4 border border-black rounded-full mx-1 `}
+          className={`p-2 lg:px-4 border border-black rounded-full  `}
           onClick={() => handlePageChange(1)}
           >
           1
@@ -76,7 +76,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
       <button
         onClick={() => handlePageChange(Math.max(1, page - 1))}
         disabled={page === 1}
-        className='text-2xl font-bold'
+        className='text-md lg:text-2xl font-bold'
       >
         <FaArrowLeft />
       </button>
@@ -84,7 +84,7 @@ const Pagination = ({ totalPages , totalPagesToShow = 7 } : PaginationProps) => 
       <button
         onClick={() => handlePageChange(Math.min(totalPages, page + 1))}
         disabled={page === totalPages}
-        className='text-2xl font-bold'
+        className='text-md lg:text-2xl font-bold'
       >
         <FaArrowRight />
       </button>

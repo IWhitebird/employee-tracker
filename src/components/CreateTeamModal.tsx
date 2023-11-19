@@ -57,7 +57,7 @@ const CreateTeamModal = ({ setTeamModal }: { setTeamModal: Function }) => {
   return (
     <>
       <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-lg"></div>
-      <div className="w-[30rem] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl p-4">
+      <div className="w-[20rem] lg:w-[30rem] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl p-4">
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Team Name

@@ -101,7 +101,7 @@ const Home = () => {
     <>
     <div>
         <Navbar />
-        <div className="flex flex-row justify-evenly items-center w-[80%] mx-auto mt-5 mb-5">
+        <div className="flex flex-col lg:flex-row justify-evenly items-center w-[80%] mx-auto mt-5 mb-5">
           <Filter />
           {
             !createTeamMode &&
@@ -155,12 +155,14 @@ const Home = () => {
           <Pagination totalPages={totalPages}/>
         </div>
 
+        <div>
           {
             teamModal && <CreateTeamModal setTeamModal={setTeamModal} />
           }
           {
             userModalId !== null && <UserModal userId={userModalId} setUserModalId={setUserModalId} />
           }
+        </div>
     </div>
     </>
   )
