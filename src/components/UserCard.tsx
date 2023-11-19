@@ -7,7 +7,8 @@ const UserCard = ({ user }: { user: IUser }) => {
 
   return (
     <div className={`lg:w-[80%] mx-auto bg-white rounded-lg overflow-hidden border-2 border-black
-    ${createTeamMode && (team_members.includes(user) ? 'border-green-500' : user.available === true ? 'border-black' : 'border-gray-400')}`}>
+    ${createTeamMode && (team_members.includes(user) ? 'border-green-500' : 
+    (user.available === true && team_members.filter((mem) => mem.domain == user.domain ).length === 0) ? 'border-black' : 'bg-red-200')}`}>
       <div className="flex w-full ">
         
         <div className="flex min-w-[15%] items-center p-2">

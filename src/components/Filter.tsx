@@ -15,7 +15,7 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="mt-10 mb-10 flex flex-row w-[80%] mr-10 mx-auto rounded-xl p-2 content-center items-center justify-between bg-gray-200 border border-black">
+    <div className="m-5 flex flex-row w-[80%]  mx-auto rounded-xl p-2 content-center items-center justify-between bg-gray-200 border border-black">
       <div>
         {/* Search bar */}
         <input

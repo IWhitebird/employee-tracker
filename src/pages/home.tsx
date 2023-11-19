@@ -7,22 +7,25 @@ import UserCard from "../components/UserCard"
 import Pagination from "../components/Pagination"
 import Filter from "../components/Filter"
 import Navbar from "../components/Navbar"
-import TeamModal from "../components/TeamModal"
+import CreateTeamModal from "../components/CreateTeamModal"
+import Loading from "../components/Loading"
 
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../store/reducer"
 import { setData } from "../store/slices/userSlice"
 import { setTeamMode , setTeamMembers } from "../store/slices/teamSlice"
+import UserModal from "../components/UserModal"
 
 const Home = () => {
 
   const [totalPages , setTotalPages] = useState<number>(0)
   const [teamModal , setTeamModal] = useState<boolean>(false)
   const [loading , setLoading] = useState<boolean>(false)
+  const [userModalId , setUserModalId] = useState<any>(null)
 
-  const {createTeamMode, 
-      team_members} 
-   = useSelector((state : RootState) => state.team)
+  const {
+    createTeamMode, 
+    team_members}  = useSelector((state : RootState) => state.team)
 
   const { 
     search , 
@@ -61,17 +64,18 @@ const Home = () => {
   } , [search , page , gender , domain , availability])
 
 
-  const addUserHandle = (user : any) => {
-    console.log(user)
-    if(user.available === false) return
-    if(team_members.includes(user)) {
-      const newTeam = team_members.filter((member : any) => member !== user)
-      dispatch(setTeamMembers(newTeam))
+  const addUserHandle = (user: any) => {
+    console.log(user);
+    if (user.available === false) return;
+    else if (team_members.includes(user)) {
+      const newTeam = team_members.filter((member: any) => member !== user);
+      dispatch(setTeamMembers(newTeam));
+    } else {
+      const newTeam = [...team_members.filter((member: any) => member.domain !== user.domain), user];
+      dispatch(setTeamMembers(newTeam));
     }
-    else {
-      dispatch(setTeamMembers([...team_members , user]))
-    }
-  }
+  };
+  
 
   const createTeamHandle = () => {
     if(team_members.length === 0){
@@ -83,15 +87,22 @@ const Home = () => {
     }
   }
 
+  const userClickHandle = (user : IUser) => {
+    console.log(user)
+    if(createTeamMode){
+      addUserHandle(user)
+    }
+    else {
+      setUserModalId(user._id)
+    }
+  }
+
   return (
     <>
     <div>
-
         <Navbar />
-
         <div className="flex flex-row justify-evenly items-center w-[80%] mx-auto mt-5 mb-5">
           <Filter />
-
           {
             !createTeamMode &&
             (<button onClick={() => dispatch(setTeamMode(true))}
@@ -112,7 +123,7 @@ const Home = () => {
             }
             {
               createTeamMode && 
-                (<button onClick={() => dispatch(setTeamMode(false))}
+                (<button onClick={() => { dispatch(setTeamMembers([])); dispatch(setTeamMode(false)); }}
                 className="w-[100px] h-[45px] bg-black text-white rounded-md hover:scale-105 transition-all duration-200
               ease-in-out">
                     Cancle
@@ -127,15 +138,12 @@ const Home = () => {
           {
             loading && 
             (
-              <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-blue-500 border-solid"></div>
-                <h1 className="text-4xl font-bold text-center ml-4">Loading...</h1>
-              </div>
+              <Loading />
             )
           }
           {
-            data.map((user : IUser , i : number) => (
-              <div onClick={() => addUserHandle(user)} key={i} 
+            data?.map((user : IUser , i : number) => (
+              <div onClick={() => userClickHandle(user)} key={i} 
                 className={"cursor-pointer hover:scale-105 transition-all duration-200 ease-in-out"}>
                   <UserCard user={user} />
               </div>
@@ -148,7 +156,10 @@ const Home = () => {
         </div>
 
           {
-            teamModal && <TeamModal setTeamModal={setTeamModal} />
+            teamModal && <CreateTeamModal setTeamModal={setTeamModal} />
+          }
+          {
+            userModalId !== null && <UserModal userId={userModalId} setUserModalId={setUserModalId} />
           }
     </div>
     </>

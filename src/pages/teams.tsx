@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import TeamCard from '../components/TeamCard'
 import Navbar from '../components/Navbar'
-import toast from 'react-hot-toast'
+import TeamModal from '../components/TeamModal'
+import Loading from '../components/Loading'
 
 const Teams = () => {
 
+  const [clickedTeam , setClickedTeam] = useState<any>(null)
   const [loading , setLoading] = useState(true)
   const [teams , setTeams] = useState([])
 
@@ -34,10 +36,7 @@ const Teams = () => {
       {
         loading && 
         (
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-blue-500 border-solid"></div>
-            <h1 className="text-4xl font-bold text-center ml-4">Loading...</h1>
-          </div>
+          <Loading />
         )
       }
       {
@@ -51,12 +50,18 @@ const Teams = () => {
         (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {teams?.map((team, index) => (
-            <TeamCard key={index} team={team} />
+            <div key={index} className='cursor-pointer' onClick={() => setClickedTeam(team)}>
+              <TeamCard  team={team} />
+            </div>
           ))}
         </div>
         )
       }
     </div>
+    {
+      clickedTeam !== null && 
+      <TeamModal teamId={clickedTeam._id} setClickedTeam={setClickedTeam} />
+    }
     </>
   )
 }
